@@ -32,7 +32,7 @@ class Dialog(torch.utils.data.Dataset):
         for i in range(len(x['objects'])):
             # [x,y,width,height]
             # x, y: the upper-left coordinates of the bounding box
-            [x_tl, y_tl, w, h] = x['objects']['bbox']
+            [x_tl, y_tl, w, h] = x['objects'][i]['bbox']
             xmin = unit_normalize(x_tl, w, 0)
             xmax = unit_normalize(x_tl + w, w, 0)
             xcenter = unit_normalize(x_tl + w // 2, w, 0)
@@ -42,7 +42,7 @@ class Dialog(torch.utils.data.Dataset):
             wbox = unit_normalize(w, w, 0)
             hbox = unit_normalize(h, h, 0)
             # spatial features used by https://arxiv.org/pdf/1703.05423.pdf
-            x['objects']['spatial'] = [xmin, ymin, xmax, 
+            x['objects'][i]['spatial'] = [xmin, ymin, xmax, 
                 ymax, xcenter, ycenter, wbox, hbox]
                 
         return x
