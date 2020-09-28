@@ -17,3 +17,10 @@ class Dialog(torch.utils.data.Dataset):
         obj = self.json_objs[i]
         img_path = os.path.join(self.image_loc, obj['image']['file_name'])
         img = Image.open(img_path)
+        obj['image']['raw'] = img
+
+        # TODO:
+        # normalize object bboxs to [0-1]?
+        # encode questions and answers as integers?
+
+        return obj
